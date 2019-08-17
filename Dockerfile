@@ -1,6 +1,6 @@
 FROM php:7.3-fpm-buster
 
-ENV GRAV_VERSION 1.6.12
+ENV GRAV_VERSION 1.6.13
 
 RUN set -ex; \
     \
@@ -8,6 +8,7 @@ RUN set -ex; \
     apt-get install -y --no-install-recommends \
         git \
         unzip \
+        rsync \
     ; \
     rm -rf /var/lib/apt/lists/*;
 
@@ -38,16 +39,6 @@ RUN set -ex; \
         apcu \
         yaml \
     ; \
-    git clone https://github.com/getgrav/grav.git ./; \
-    git checkout tags/$GRAV_VERSION; \
-    rm -rf \
-        .editorconfig \
-        .gitignore \
-        .travis.yml \
-        .git \
-        tests \
-        webserver-configs \
-    ; \
     apt-mark auto '.*' > /dev/null; \
     apt-mark manual $savedAptMark; \
     ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
@@ -60,6 +51,26 @@ RUN set -ex; \
     \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/*
+
+RUN set -ex; \
+    \
+    git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/share/grav; \
+    cd /usr/share/grav; \
+    rm -rf \
+        .editorconfig \
+        .gitignore \
+        .travis.yml \
+        .git \
+        assets \
+        backup \
+        cache \
+        images \
+        logs \
+        tmp \
+        tests \
+        webserver-configs \
+        user \
+    ;
 
 COPY entrypoint.sh /entrypoint.sh
 
