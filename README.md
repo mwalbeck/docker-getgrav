@@ -16,6 +16,8 @@ You can checkout the dockerfile over on [Github](https://github.com/mwalbeck/doc
 
 GRAV is installed into /var/www/html where you will find all the folders from a normal grav install.
 
+The php process and the files are run/owned by the www-data user.
+
 You can simple create the volumes you need linked to the desired folders. You can also have a look at the example docker-compose file below if you are in need of inspiration.
 
 This GRAV container works best if you utilize a dependencies file. If you're not familiar with it, you can checkout this [skeleton page](https://github.com/getgrav/grav-skeleton-onepage-site/blob/develop/.dependencies) to get an idea.
