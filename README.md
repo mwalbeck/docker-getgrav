@@ -65,8 +65,6 @@ services:
   app:
     image: mwalbeck/getgrav:latest
     restart: always
-    security_opt:
-      - no-new-privileges
     networks:
       - frontend
     volumes:
@@ -76,8 +74,6 @@ services:
   web:
     image: nginx:latest
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges
     networks:
       - frontend
     volumes:
