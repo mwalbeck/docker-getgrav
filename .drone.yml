@@ -1,17 +1,18 @@
+---
 kind: pipeline
 name: default
 
 steps:
-- name: docker
-  image: plugins/docker
-  settings:
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-    repo: docker.walbeck.it/walbeck-it/grav
-    registry: docker.walbeck.it
-    tags: 
-      - latest
-      - "1.6"
-      - "1.6.19"
+  - name: docker
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: docker.walbeck.it/walbeck-it/grav
+      registry: docker.walbeck.it
+      tags:
+        - latest
+        - "1.6"
+        - "1.6.19"
