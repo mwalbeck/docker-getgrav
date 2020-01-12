@@ -1,6 +1,12 @@
 #!/bin/sh
 set -eu
 
+UID=${UID:-33}
+GID=${GID:-33}
+
+usermod -o -u "$UID" www-data
+groupmod -o -g "$GID" www-data
+
 cd /var/www/html
 
 rsync -rlD --delete \
