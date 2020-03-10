@@ -32,7 +32,7 @@ RUN set -ex; \
         opcache \
     ; \
     \
-    pecl install apcu-5.1.17; \
+    pecl install apcu-5.1.18; \
     pecl install yaml-2.0.4; \
     \
     docker-php-ext-enable \
@@ -73,6 +73,8 @@ RUN set -ex; \
     ;
 
 COPY entrypoint.sh /entrypoint.sh
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+COPY grav.ini $PHP_INI_DIR/conf.d/
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]
