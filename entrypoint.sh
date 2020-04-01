@@ -3,11 +3,13 @@ set -eu
 
 UID=${UID:-33}
 GID=${GID:-33}
+GRAV_FOLDER=${GRAV_FOLDER:-html}
 
 usermod -o -u "$UID" www-data
 groupmod -o -g "$GID" www-data
 
-cd /var/www/html
+mkdir -p /var/www/$GRAV_FOLDER
+cd /var/www/$GRAV_FOLDER
 
 rsync -rlD --delete \
            --exclude /backup/ \
@@ -15,7 +17,7 @@ rsync -rlD --delete \
            --exclude /tmp/ \
            --exclude /vendor/ \
            --exclude /user/ \
-           /usr/share/grav/ /var/www/html
+           /usr/share/grav/ /var/www/$GRAV_FOLDER
 
 mkdir -p assets backup cache images logs tmp
 
