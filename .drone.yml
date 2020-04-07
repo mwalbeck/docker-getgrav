@@ -1,11 +1,12 @@
 ---
 kind: pipeline
-name: default
+name: grav-1.6
 
 steps:
   - name: docker
     image: plugins/docker
     settings:
+      dockerfile: 1.6/Dockerfile
       username:
         from_secret: docker_username
       password:
@@ -15,3 +16,21 @@ steps:
         - latest
         - "1.6"
         - "1.6.23"
+
+---
+kind: pipeline
+name: grav-1.7
+
+steps:
+  - name: docker
+    image: plugins/docker
+    settings:
+      dockerfile: 1.7/Dockerfile
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: mwalbeck/getgrav
+      tags:
+        - "1.7-rc"
+        - "1.7.0-rc8"
