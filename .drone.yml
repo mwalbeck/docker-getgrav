@@ -33,4 +33,4 @@ steps:
       repo: mwalbeck/getgrav
       tags:
         - "1.7-rc"
-        - "1.7.0-rc9"
+        - "1.7.0-rc10"
