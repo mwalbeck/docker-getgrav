@@ -1,6 +1,6 @@
 FROM php:7.3-fpm-buster
 
-ENV GRAV_VERSION 1.6.25
+ENV GRAV_VERSION 1.6.26
 
 RUN set -ex; \
     \

@@ -15,7 +15,7 @@ steps:
       tags:
         - latest
         - "1.6"
-        - "1.6.25"
+        - "1.6.26"
 
 ---
 kind: pipeline
@@ -33,4 +33,4 @@ steps:
       repo: mwalbeck/getgrav
       tags:
         - "1.7-rc"
-        - "1.7.0-rc11"
+        - "1.7.0-rc12"
