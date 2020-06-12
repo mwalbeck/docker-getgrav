@@ -1,9 +1,29 @@
 ---
 kind: pipeline
-name: grav-1.6
+name: grav_1.6
 
 steps:
-  - name: docker
+  - name: determine tags
+    image: bash
+    environment:
+      APP: "GRAV"
+      DIR: "1.6/"
+      CUSTOM_TAGS: "latest,"
+    commands:
+      - apk add --no-cache grep
+      - VER=$(grep "ENV $${APP}_VERSION" $${DIR:-}Dockerfile)
+      - VER=$${VER##* }
+      - PRE=$${VER#*-}
+      - TAGS="$${CUSTOM_TAGS:-}"
+      - if [ "$PRE" = "$VER" ]; then PRE=""; else PRE="-$PRE"; fi;
+      - TAGS="$TAGS$VER,"
+      - VER=$${VER%.*}
+      - TAGS="$TAGS$VER$PRE,"
+      # - VER=$${VER%.*}
+      # - TAGS="$TAGS$VER$PRE"
+      - echo -n $TAGS > .tags
+
+  - name: build and publish
     image: plugins/docker
     settings:
       dockerfile: 1.6/Dockerfile
@@ -12,17 +32,55 @@ steps:
       password:
         from_secret: dockerhub_password
       repo: mwalbeck/getgrav
-      tags:
-        - latest
-        - "1.6"
-        - "1.6.26"
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
 
 ---
 kind: pipeline
-name: grav-1.7
+name: test_1.6
 
 steps:
-  - name: docker
+  - name: build test
+    image: plugins/docker
+    settings:
+      dockerfile: 1.6/Dockerfile
+      repo: mwalbeck/getgrav
+      dry_run: true
+
+trigger:
+  event:
+    - pull_request
+
+---
+kind: pipeline
+name: grav_1.7
+
+steps:
+  - name: determine tags
+    image: bash
+    environment:
+      APP: "GRAV"
+      DIR: "1.7/"
+      CUSTOM_TAGS: ""
+    commands:
+      - apk add --no-cache grep
+      - VER=$(grep "ENV $${APP}_VERSION" $${DIR:-}Dockerfile)
+      - VER=$${VER##* }
+      - PRE=$${VER#*-}
+      - TAGS="$${CUSTOM_TAGS:-}"
+      - if [ "$PRE" = "$VER" ]; then PRE=""; else PRE="-$PRE"; fi;
+      - TAGS="$TAGS$VER,"
+      - VER=$${VER%.*}
+      - TAGS="$TAGS$VER$PRE,"
+      # - VER=$${VER%.*}
+      # - TAGS="$TAGS$VER$PRE"
+      - echo -n $TAGS > .tags
+
+  - name: build and publish
     image: plugins/docker
     settings:
       dockerfile: 1.7/Dockerfile
@@ -31,6 +89,25 @@ steps:
       password:
         from_secret: docker_password
       repo: mwalbeck/getgrav
-      tags:
-        - "1.7-rc"
-        - "1.7.0-rc12"
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+
+---
+kind: pipeline
+name: test_1.7
+
+steps:
+  - name: build test
+    image: plugins/docker
+    settings:
+      dockerfile: 1.7/Dockerfile
+      repo: mwalbeck/getgrav
+      dry_run: true
+
+trigger:
+  event:
+    - pull_request
