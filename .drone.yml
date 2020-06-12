@@ -19,8 +19,6 @@ steps:
       - TAGS="$TAGS$VER,"
       - VER=$${VER%.*}
       - TAGS="$TAGS$VER$PRE"
-      # - VER=$${VER%.*}
-      # - TAGS="$TAGS$VER$PRE"
       - echo -n $TAGS > .tags
 
   - name: build and publish
@@ -76,8 +74,6 @@ steps:
       - TAGS="$TAGS$VER,"
       - VER=$${VER%.*}
       - TAGS="$TAGS$VER$PRE"
-      # - VER=$${VER%.*}
-      # - TAGS="$TAGS$VER$PRE"
       - echo -n $TAGS > .tags
 
   - name: build and publish
