@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-buster
+FROM php:7.3.19-fpm-buster
 
 ENV GRAV_VERSION 1.6.26
 
