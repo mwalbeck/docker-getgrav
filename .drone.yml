@@ -18,7 +18,7 @@ steps:
       - if [ "$PRE" = "$VER" ]; then PRE=""; else PRE="-$PRE"; fi;
       - TAGS="$TAGS$VER,"
       - VER=$${VER%.*}
-      - TAGS="$TAGS$VER$PRE,"
+      - TAGS="$TAGS$VER$PRE"
       # - VER=$${VER%.*}
       # - TAGS="$TAGS$VER$PRE"
       - echo -n $TAGS > .tags
@@ -75,7 +75,7 @@ steps:
       - if [ "$PRE" = "$VER" ]; then PRE=""; else PRE="-$PRE"; fi;
       - TAGS="$TAGS$VER,"
       - VER=$${VER%.*}
-      - TAGS="$TAGS$VER$PRE,"
+      - TAGS="$TAGS$VER$PRE"
       # - VER=$${VER%.*}
       # - TAGS="$TAGS$VER$PRE"
       - echo -n $TAGS > .tags
@@ -85,9 +85,9 @@ steps:
     settings:
       dockerfile: 1.7/Dockerfile
       username:
-        from_secret: docker_username
+        from_secret: dockerhub_username
       password:
-        from_secret: docker_password
+        from_secret: dockerhub_password
       repo: mwalbeck/getgrav
 
 trigger:
