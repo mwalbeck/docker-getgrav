@@ -37,7 +37,7 @@ RUN set -ex; \
     ; \
     \
     pecl install apcu-5.1.18; \
-    pecl install yaml-2.0.4; \
+    pecl install yaml-2.1.0; \
     \
     docker-php-ext-enable \
         apcu \
