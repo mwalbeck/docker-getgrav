@@ -4,11 +4,15 @@ ENV GRAV_VERSION 1.7.0-rc.12
 
 RUN set -ex; \
     \
+    groupadd --system foo; \
+    useradd --no-log-init --system --gid foo --create-home foo; \
+    \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         git \
         unzip \
         rsync \
+        gosu \
     ; \
     rm -rf /var/lib/apt/lists/*;
 

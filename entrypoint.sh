@@ -21,9 +21,10 @@ rsync -rlD --delete \
 
 mkdir -p assets backup cache images logs tmp
 
-chown -R www-data:www-data .
+bin/grav install
+bin/grav clearcache
 
-su -p www-data -s bin/grav install
-su -p www-data -s bin/grav clearcache
+chown foo /proc/self/fd/1 /proc/self/fd/2
+chown -R foo:foo /var/www/$GRAV_FOLDER
 
-exec "$@"
+exec gosu foo "$@"

@@ -4,11 +4,15 @@ ENV GRAV_VERSION 1.6.26
 
 RUN set -ex; \
     \
+    groupadd --system foo; \
+    useradd --no-log-init --system --gid foo --create-home foo; \
+    \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         git \
         unzip \
         rsync \
+        gosu \
     ; \
     rm -rf /var/lib/apt/lists/*;
 

@@ -20,7 +20,7 @@ steps:
       - VER=$${VER%.*}
       - TAGS="$TAGS$VER$PRE"
       - echo -n $TAGS > .tags
-      - cat .tags
+      - echo $TAGS
 
   - name: build and publish
     image: plugins/docker
@@ -76,7 +76,7 @@ steps:
       - VER=$${VER%.*}
       - TAGS="$TAGS$VER$PRE"
       - echo -n $TAGS > .tags
-      - cat .tags
+      - echo $TAGS
 
   - name: build and publish
     image: plugins/docker
