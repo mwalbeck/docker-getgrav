@@ -5,8 +5,8 @@ UID=${UID:-33}
 GID=${GID:-33}
 GRAV_FOLDER=${GRAV_FOLDER:-html}
 
-usermod -o -u "$UID" www-data
-groupmod -o -g "$GID" www-data
+usermod -o -u "$UID" foo
+groupmod -o -g "$GID" foo
 
 mkdir -p /var/www/$GRAV_FOLDER
 cd /var/www/$GRAV_FOLDER
