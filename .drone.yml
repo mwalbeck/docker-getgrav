@@ -33,6 +33,21 @@ steps:
         from_secret: dockerhub_password
       repo: mwalbeck/getgrav
 
+  - name: notify
+    image: plugins/matrix
+    settings:
+        homeserver: https://matrix.mwalbeck.org
+        roomid:
+        from_secret: matrix_roomid
+        username:
+        from_secret: matrix_username
+        password:
+        from_secret: matrix_password
+    when:
+        status:
+        - success
+        - failure
+
 trigger:
   branch:
     - master
@@ -90,6 +105,21 @@ steps:
         from_secret: dockerhub_password
       repo: mwalbeck/getgrav
 
+  - name: notify
+    image: plugins/matrix
+    settings:
+        homeserver: https://matrix.mwalbeck.org
+        roomid:
+        from_secret: matrix_roomid
+        username:
+        from_secret: matrix_username
+        password:
+        from_secret: matrix_password
+    when:
+        status:
+        - success
+        - failure
+
 trigger:
   branch:
     - master
@@ -111,24 +141,3 @@ steps:
 trigger:
   event:
     - pull_request
-
----
-kind: pipeline
-name: notify
-
-steps:
-  - name: notify
-    image: plugins/matrix
-    settings:
-      homeserver: https://matrix.mwalbeck.org
-      roomid:
-        from_secret: matrix_roomid
-      username:
-        from_secret: matrix_username
-      password:
-        from_secret: matrix_password
-
-trigger:
-  status:
-    - success
-    - failure
