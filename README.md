@@ -2,49 +2,58 @@
 
 Docker container for [GRAV CMS](https://getgrav.org/).
 
-This image is based on the PHP fpm-buster image.
+This image is based on the PHP:7.3.*-fpm-buster image.
+
+You can find the source [here](https://git.walbeck.it/walbeck-it/docker-getgrav)
 
 ## Tags
 
-* latest - lastest release
-* 1.6 - latest 1.6.* release
-* 1.6.* - that specific version of grav
+* latest
+* 1.6
+* 1.6.*
+* 1.7-rc.*
+* 1.7.\*-rc.\*
 
 ## Usage
+This is purely php-fpm bash image, which means you need another container to act as the webserver, I recommend nginx. For a nginx config to use with GRAV, you can have a look at the [GRAV documentation](https://learn.getgrav.org/16/webservers-hosting/servers/nginx)
 
-GRAV is installed into /var/www/html where you will find all the folders from a normal grav install.
+GRAV is by default installed into /var/www/html where you will find all the folders from a normal GRAV install. A user has been created in container with a default id of 33 (same as www-data).
 
-The php process and the files are run/owned by the www-data user.
+To provide your site data to the container simply do use a volume mount to the desired folder. You can see the docker-compose example at the bottom for an example with volume mount and nginx webserver.
 
-You can simple create the volumes you need linked to the desired folders. You can also have a look at the example docker-compose file below if you are in need of inspiration.
+When you deploy or update the docker container it will replace all the neccessary files and leave all folders with potential user generated content. The following folders are ignored
 
-This GRAV container works best if you utilize a dependencies file. If you're not familiar with it, you can checkout this [skeleton page](https://github.com/getgrav/grav-skeleton-onepage-site/blob/develop/.dependencies) to get an idea.
+    backup/
+    logs/
+    tmp/
+    vendor/
+    user/
 
-When you deploy the docker container it will replace all the neccessary files and leave all folders with potential user generated content. The following folders are ignored
-```
-backup/
-logs/
-tmp/
-vendor/
-user/
-```
-After the GRAV files have been installed a **bin/grav install** will be run to install the correct composer dependencies into vendor and all plugins specified in your dependencies file. Lastly the cache will be cleared.
+All other folders will be overwritten, which also means that it's very easy to up and down grade your version of GRAV.
+
+After the GRAV files have been installed a **bin/grav install** will be run to install the correct composer dependencies into vendor and all plugins specified in your dependencies file, if you have one. Lastly the cache will be cleared.
+
+You can customise the user id and group id the container user runs as, and the folder name under /var/www, that GRAV will be installed into, with environment variables:
+
+    UID=1000
+    GID=1000
+    GRAV_FOLDER=awesome-site
+
+With the above options the container user will run with a user id and group id of 1000. Grav will be installed into /var/www/awesome-site.
 
 ### Commandline
 
 You can easily use GRAV's commandline interface using docker exec
 
-```
-docker exec -u www-data CONTAINER bin/(gpm|grav|plugin)
-```
+
+    docker exec -u www-data CONTAINER bin/(gpm|grav|plugin)
+
 ### Updating
 
 To update the container you simple download the new container and replace it with the old one. For docker-compose that would be
 
-```
-docker-compose pull
-docker-compose up -d
-```
+    docker-compose pull
+    docker-compose up -d
 
 ### Example docker-compose
 
@@ -62,16 +71,20 @@ networks:
 services:
   app:
     image: mwalbeck/getgrav:latest
-    restart: always
+    restart: on-failure:5
     networks:
       - frontend
     volumes:
       - grav:/var/www/html
       - /path/to/user:/var/www/html/user
+    environment:
+      - UID=1000
+      - GID=1000
+      - GRAV_FOLDER=awesome-grav-site
 
   web:
     image: nginx:latest
-    restart: unless-stopped
+    restart: on-failure:5
     networks:
       - frontend
     volumes:
