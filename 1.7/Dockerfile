@@ -1,7 +1,7 @@
 FROM php:7.3.25-fpm-buster@sha256:258e2d868886c1b7ed46fef3aceb17825442ab16c545371aa1458b02a2bfce67
 
 # renovate: datasource=github-tags depName=getgrav/grav versioning=semver
-ENV GRAV_VERSION 1.7.0-rc.19
+ENV GRAV_VERSION 1.7.0-rc.20
 
 RUN set -ex; \
     \
