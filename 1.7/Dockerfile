@@ -1,4 +1,4 @@
-FROM php:7.3.26-fpm-buster@sha256:5486bc680e861122a507a223b83170f35942e065b2e46ce72a3a07bc7f8ee658
+FROM php:7.3.26-fpm-buster@sha256:91d5ca592199fde8668c46cfbbbc96b650141bcba7e2dd653eaa389c8079c392
 
 # renovate: datasource=github-tags depName=getgrav/grav versioning=semver
 ENV GRAV_VERSION 1.7.0-rc.20
