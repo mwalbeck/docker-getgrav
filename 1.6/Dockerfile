@@ -5,7 +5,7 @@ SHELL [ "/bin/bash", "-c" ]
 # renovate: datasource=github-tags depName=getgrav/grav versioning=semver
 ENV GRAV_VERSION 1.6.31
 # renovate: datasource=github-tags depName=krakjoe/apcu versioning=semver
-ENV PHP_APCU_VERSION v5.1.18
+ENV PHP_APCU_VERSION v5.1.19
 # renovate: datasource=github-tags depName=php/pecl-file_formats-yaml versioning=semver
 ENV PHP_YAML_VERSION 2.2.1
 
