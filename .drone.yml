@@ -1,27 +1,18 @@
 ---
 kind: pipeline
+type: docker
 name: grav_1.6
 
 steps:
   - name: determine tags
-    image: bash
+    image: mwalbeck/determine-docker-tags
     environment:
-      APP: "GRAV"
-      DIR: "1.6/"
-      CUSTOM_TAGS: "latest,"
-    commands:
-      - apk add --no-cache grep
-      - VER=$(grep "ENV $${APP}_VERSION" $${DIR:-}Dockerfile)
-      - VER=$${VER##* }
-      - PRE=$${VER#*-}
-      - VER=$${VER%-*}
-      - TAGS="$${CUSTOM_TAGS:-}"
-      - if [ "$PRE" = "$VER" ]; then PRE=""; else PRE="-$PRE"; fi;
-      - TAGS="$TAGS$VER$PRE,"
-      - VER=$${VER%.*}
-      - TAGS="$TAGS$VER$PRE"
-      - echo -n $TAGS > .tags
-      - echo $TAGS
+      VERSION_TYPE: "docker_env"
+      APP_NAME: "GRAV"
+      DOCKERFILE_PATH: "1.6/Dockerfile"
+      APP_ENV: ""
+      CUSTOM_TAGS: ""
+      INCLUDE_MAJOR: "no"
 
   - name: build and publish
     image: plugins/docker
@@ -56,6 +47,7 @@ trigger:
 
 ---
 kind: pipeline
+type: docker
 name: test_1.6
 
 steps:
@@ -72,28 +64,19 @@ trigger:
 
 ---
 kind: pipeline
+type: docker
 name: grav_1.7
 
 steps:
   - name: determine tags
-    image: bash
+    image: mwalbeck/determine-docker-tags
     environment:
-      APP: "GRAV"
-      DIR: "1.7/"
-      CUSTOM_TAGS: ""
-    commands:
-      - apk add --no-cache grep
-      - VER=$(grep "ENV $${APP}_VERSION" $${DIR:-}Dockerfile)
-      - VER=$${VER##* }
-      - PRE=$${VER#*-}
-      - VER=$${VER%-*}
-      - TAGS="$${CUSTOM_TAGS:-}"
-      - if [ "$PRE" = "$VER" ]; then PRE=""; else PRE="-$PRE"; fi;
-      - TAGS="$TAGS$VER$PRE,"
-      - VER=$${VER%.*}
-      - TAGS="$TAGS$VER$PRE"
-      - echo -n $TAGS > .tags
-      - echo $TAGS
+      VERSION_TYPE: "docker_env"
+      APP_NAME: "GRAV"
+      DOCKERFILE_PATH: "1.7/Dockerfile"
+      APP_ENV: ""
+      CUSTOM_TAGS: "latest"
+      INCLUDE_MAJOR: "no"
 
   - name: build and publish
     image: plugins/docker
@@ -128,6 +111,7 @@ trigger:
 
 ---
 kind: pipeline
+type: docker
 name: test_1.7
 
 steps:
