@@ -80,7 +80,8 @@ RUN set -ex; \
         tests \
         webserver-configs \
         user \
-    ;
+    ; \
+    chown -R www-data:www-data /var/www;
 
 COPY entrypoint.sh /entrypoint.sh
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
