@@ -14,11 +14,31 @@
 			}
         },
         {
+            "label": "docker-build: 1.6-prod",
+            "type": "docker-build",
+            "dockerBuild": {
+				"tag": "dockergetgrav:1.6-prod",
+				"dockerfile": "${workspaceFolder}/1.6/Dockerfile.prod",
+				"context": "${workspaceFolder}",
+				"pull": true
+			}
+        },
+        {
             "label": "docker-build: 1.7",
             "type": "docker-build",
             "dockerBuild": {
 				"tag": "dockergetgrav:1.7",
 				"dockerfile": "${workspaceFolder}/1.7/Dockerfile",
+				"context": "${workspaceFolder}",
+				"pull": true
+			}
+        },
+        {
+            "label": "docker-build: 1.7-prod",
+            "type": "docker-build",
+            "dockerBuild": {
+				"tag": "dockergetgrav:1.7-prod",
+				"dockerfile": "${workspaceFolder}/1.7/Dockerfile.prod",
 				"context": "${workspaceFolder}",
 				"pull": true
 			}

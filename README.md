@@ -8,17 +8,22 @@ You can find the source code [here](https://git.walbeck.it/walbeck-it/docker-get
 
 ## Tags
 
-* latest
+* latest (currently 1.7)
+* latest-prod (currently 1.7-prod)
 * 1.6
 * 1.6.*
+* 1.6-prod
+* 1.6.*-prod
 * 1.7
 * 1.7.*
+* 1.7-prod
+* 1.7.*-prod
 
 ## Usage
 
 This is purely php-fpm based image, which means you need another container to act as the webserver, I recommend nginx. For a nginx config to use with GRAV, you can have a look at the [GRAV documentation](https://learn.getgrav.org/17/webservers-hosting/servers/nginx)
 
-GRAV is by default installed into /var/www/html where you will find all the folders from a normal GRAV install. By default the container is run as user www-data with id 33.
+GRAV is by default installed into /var/www/html where you will find all the folders from a normal GRAV install. A user has been created in container with a default id of 33 (same as www-data).
 
 To provide your site data to the container simply do use a volume mount to the desired folder. You can see the docker-compose example at the bottom for an example with volume mount and nginx webserver.
 
@@ -34,15 +39,17 @@ All other folders will be overwritten, which also means that it's very easy to u
 
 After the GRAV files have been installed a **bin/grav install** will be run to install the correct composer dependencies into vendor and all plugins specified in your dependencies file, if you have one. Lastly the cache will be cleared.
 
-You can customize which user the container runs as by using the [user option](https://docs.docker.com/engine/reference/run/#user).
+You can customise the user id and group id the container user runs as, and the folder name under /var/www, that GRAV will be installed into, with environment variables:
 
-You can also change the folder name under /var/www, that GRAV will be installed into, by setting the following environment variable:
-
+    UID=1000
+    GID=1000
     GRAV_FOLDER=awesome-site
 
-With the above option Grav will be installed into /var/www/awesome-site.
+With the above options the container user will run with a user id and group id of 1000. Grav will be installed into /var/www/awesome-site.
 
-If you wish you can run the container with the read-only option enabled.
+### Prod image
+
+The prod image exists if you would like to use the docker image with the read-only flag enabled. The prod container will be run as www-data with its default UID and GID, 33. You cannot change this at the moment. You can still customise the grav folder name just like the default image.
 
 ### Commandline
 
@@ -75,13 +82,14 @@ services:
   app:
     image: mwalbeck/getgrav:latest
     restart: on-failure:5
-    user: 1000:1000
     networks:
       - frontend
     volumes:
       - grav:/var/www/html
       - /path/to/user:/var/www/html/user
     environment:
+      - UID=1000
+      - GID=1000
       - GRAV_FOLDER=awesome-grav-site
 
   web:

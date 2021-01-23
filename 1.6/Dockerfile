@@ -11,14 +11,15 @@ ENV PHP_YAML_VERSION 2.2.1
 
 RUN set -ex; \
     \
-    groupadd --force --system --gid 33 www-data; \
-    useradd --no-log-init --system --gid www-data --no-create-home --uid 33 www-data || true; \
+    groupadd --system foo; \
+    useradd --no-log-init --system --gid foo --create-home foo; \
     \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         git \
         unzip \
         rsync \
+        gosu \
     ; \
     rm -rf /var/lib/apt/lists/*;
 
@@ -80,17 +81,13 @@ RUN set -ex; \
         tests \
         webserver-configs \
         user \
-    ; \
-    chmod 777 /var/www;
+    ;
 
 COPY entrypoint.sh /entrypoint.sh
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY grav.ini $PHP_INI_DIR/conf.d/
 
-VOLUME [ "/var/www", "/tmp" ]
 EXPOSE 9000
-
-USER www-data:www-data
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]
