@@ -1,6 +1,6 @@
 FROM php:7.4.14-fpm-buster@sha256:e9efa237664ac68793c62a7eb202a0383cce7e82ac43fb7f71347c23f1b6d3c7
 
-SHELL [ "/bin/bash", "-c" ]
+SHELL [ "/bin/bash", "-exo", "pipefail", "-c" ]
 
 # renovate: datasource=github-tags depName=getgrav/grav versioning=semver
 ENV GRAV_VERSION 1.7.5
@@ -9,9 +9,7 @@ ENV PHP_APCU_VERSION v5.1.19
 # renovate: datasource=github-tags depName=php/pecl-file_formats-yaml versioning=semver
 ENV PHP_YAML_VERSION 2.2.1
 
-RUN set -ex; \
-    \
-    groupadd --system foo; \
+RUN groupadd --system foo; \
     useradd --no-log-init --system --gid foo --create-home foo; \
     \
     apt-get update; \
@@ -23,9 +21,7 @@ RUN set -ex; \
     ; \
     rm -rf /var/lib/apt/lists/*;
 
-RUN set -ex; \
-    \
-    savedAptMark="$(apt-mark showmanual)"; \
+RUN savedAptMark="$(apt-mark showmanual)"; \
     \
     apt-get update; \
     apt-get install -y --no-install-recommends \
@@ -44,7 +40,7 @@ RUN set -ex; \
     ; \
     \
     pecl install apcu-${PHP_APCU_VERSION:1}; \
-    pecl install yaml-$PHP_YAML_VERSION; \
+    pecl install yaml $PHP_YAML_VERSION; \
     \
     docker-php-ext-enable \
         apcu \
@@ -63,9 +59,7 @@ RUN set -ex; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/*
 
-RUN set -ex; \
-    \
-    git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/share/grav; \
+RUN git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/share/grav; \
     cd /usr/share/grav; \
     rm -rf \
         .editorconfig \

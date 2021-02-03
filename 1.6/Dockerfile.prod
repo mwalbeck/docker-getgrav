@@ -1,6 +1,6 @@
 FROM php:7.3.26-fpm-buster@sha256:6bc677764c7f94da7c93a45e2831a6c1774001ff61e822011844fd79ae07b533
 
-SHELL [ "/bin/bash", "-c" ]
+SHELL [ "/bin/bash", "-exo", "pipefail", "-c" ]
 
 # renovate: datasource=github-tags depName=getgrav/grav versioning=semver
 ENV GRAV_VERSION 1.6.31
@@ -9,9 +9,7 @@ ENV PHP_APCU_VERSION v5.1.19
 # renovate: datasource=github-tags depName=php/pecl-file_formats-yaml versioning=semver
 ENV PHP_YAML_VERSION 2.2.1
 
-RUN set -ex; \
-    \
-    groupadd --force --system --gid 33 www-data; \
+RUN groupadd --force --system --gid 33 www-data; \
     useradd --no-log-init --system --gid www-data --no-create-home --uid 33 www-data || true; \
     \
     apt-get update; \
@@ -23,9 +21,7 @@ RUN set -ex; \
     ; \
     rm -rf /var/lib/apt/lists/*;
 
-RUN set -ex; \
-    \
-    savedAptMark="$(apt-mark showmanual)"; \
+RUN savedAptMark="$(apt-mark showmanual)"; \
     \
     apt-get update; \
     apt-get install -y --no-install-recommends \
@@ -63,9 +59,7 @@ RUN set -ex; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/*
 
-RUN set -ex; \
-    \
-    git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/share/grav; \
+RUN git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/share/grav; \
     cd /usr/share/grav; \
     rm -rf \
         .editorconfig \
