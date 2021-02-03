@@ -4,44 +4,38 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "docker-build: 1.6",
+            "label": "docker-build",
             "type": "docker-build",
+            "group": "build",
             "dockerBuild": {
-				"tag": "dockergetgrav:1.6",
-				"dockerfile": "${workspaceFolder}/1.6/Dockerfile",
+				"tag": "dockergetgrav:${input:gravVersion}",
+				"dockerfile": "${workspaceFolder}/${input:gravVersion}/Dockerfile",
 				"context": "${workspaceFolder}",
 				"pull": true
 			}
         },
         {
-            "label": "docker-build: 1.6-prod",
+            "label": "docker-build prod",
             "type": "docker-build",
+            "group": "build",
             "dockerBuild": {
-				"tag": "dockergetgrav:1.6-prod",
-				"dockerfile": "${workspaceFolder}/1.6/Dockerfile.prod",
-				"context": "${workspaceFolder}",
-				"pull": true
-			}
-        },
-        {
-            "label": "docker-build: 1.7",
-            "type": "docker-build",
-            "dockerBuild": {
-				"tag": "dockergetgrav:1.7",
-				"dockerfile": "${workspaceFolder}/1.7/Dockerfile",
-				"context": "${workspaceFolder}",
-				"pull": true
-			}
-        },
-        {
-            "label": "docker-build: 1.7-prod",
-            "type": "docker-build",
-            "dockerBuild": {
-				"tag": "dockergetgrav:1.7-prod",
-				"dockerfile": "${workspaceFolder}/1.7/Dockerfile.prod",
+				"tag": "dockergetgrav:${input:gravVersion}-prod",
+				"dockerfile": "${workspaceFolder}/${input:gravVersion}/Dockerfile.prod",
 				"context": "${workspaceFolder}",
 				"pull": true
 			}
         }
-    ]
+    ],
+    "inputs": [
+        {
+          "type": "pickString",
+          "id": "gravVersion",
+          "description": "Which grav version do you want to build?",
+          "options": [
+            "1.7",
+            "1.6"
+          ],
+          "default": "1.7"
+        },
+      ]
 }
