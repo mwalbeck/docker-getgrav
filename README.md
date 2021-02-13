@@ -8,16 +8,10 @@ You can find the source code [here](https://git.walbeck.it/walbeck-it/docker-get
 
 ## Tags
 
-* latest (currently 1.7)
-* latest-prod (currently 1.7-prod)
-* 1.6
-* 1.6.*
-* 1.6-prod
-* 1.6.*-prod
-* 1.7
-* 1.7.*
-* 1.7-prod
-* 1.7.*-prod
+* latest, 1.7, 1.7.*
+* latest-prod, 1.7-prod, 1.7.*-prod
+* 1.6, 1.6.*
+* 1.6-prod, 1.6.*-prod
 
 ## Usage
 
@@ -29,11 +23,13 @@ To provide your site data to the container simply do use a volume mount to the d
 
 When you deploy or update the docker container it will replace all the neccessary files and leave all folders with potential user generated content. The following folders are ignored
 
-    backup/
-    logs/
-    tmp/
-    vendor/
-    user/
+```
+backup/
+logs/
+tmp/
+vendor/
+user/
+```
 
 All other folders will be overwritten, which also means that it's very easy to up and down grade your version of GRAV.
 
@@ -41,9 +37,11 @@ After the GRAV files have been installed a **bin/grav install** will be run to i
 
 You can customise the user id and group id the container user runs as, and the folder name under /var/www, that GRAV will be installed into, with environment variables:
 
-    UID=1000
-    GID=1000
-    GRAV_FOLDER=awesome-site
+```
+UID=1000
+GID=1000
+GRAV_FOLDER=awesome-site
+```
 
 With the above options the container user will run with a user id and group id of 1000. Grav will be installed into /var/www/awesome-site.
 
@@ -53,17 +51,26 @@ The prod image exists if you would like to use the docker image with the read-on
 
 ### Commandline
 
-You can easily use GRAV's commandline interface using docker exec
+You can easily use GRAV's commandline interface using docker exec:
 
+```
+docker exec CONTAINER bin/(gpm|grav|plugin)
+```
 
-    docker exec -u www-data CONTAINER bin/(gpm|grav|plugin)
+If you choose a custom GRAV_FOLDER you need to specify the workdir like so, replacing GRAV_FOLDER with your chosen folder:
+
+```
+docker exec -w /var/www/GRAV_FOLDER CONTAINER bin/(gpm|grav|plugin)
+```
 
 ### Updating
 
 To update the container you simple download the new container and replace it with the old one. For docker-compose that would be
 
-    docker-compose pull
-    docker-compose up -d
+```
+docker-compose pull
+docker-compose up -d
+```
 
 ### Example docker-compose
 
