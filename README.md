@@ -54,13 +54,13 @@ The prod image exists if you would like to use the docker image with the read-on
 You can easily use GRAV's commandline interface using docker exec:
 
 ```
-docker exec CONTAINER bin/(gpm|grav|plugin)
+docker exec -u foo CONTAINER bin/(gpm|grav|plugin)
 ```
 
 If you choose a custom GRAV_FOLDER you need to specify the workdir like so, replacing GRAV_FOLDER with your chosen folder:
 
 ```
-docker exec -w /var/www/GRAV_FOLDER CONTAINER bin/(gpm|grav|plugin)
+docker exec -u www-data -w /var/www/GRAV_FOLDER CONTAINER bin/(gpm|grav|plugin)
 ```
 
 ### Updating
