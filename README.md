@@ -1,10 +1,11 @@
-# Grav - docker
+# docker-getgrav
 
-Docker container for [GRAV CMS](https://getgrav.org/).
+[![Build Status](https://build.walbeck.it/api/badges/walbeck-it/docker-getgrav/status.svg)](https://build.walbeck.it/walbeck-it/docker-getgrav)
+![Docker Pulls](https://img.shields.io/docker/pulls/mwalbeck/getgrav)
 
-This image is based on the PHP fpm-buster image.
+Docker container for [GRAV CMS](https://getgrav.org/). All images are based on the PHP fpm-buster image.
 
-You can find the source code [here](https://git.walbeck.it/walbeck-it/docker-getgrav)
+You can find the image on Docker Hub and the source code can be found [here](https://git.walbeck.it/walbeck-it/docker-getgrav) with a mirror on [GitHub](https://github.com/mwalbeck/docker-getgrav)
 
 ## Tags
 
