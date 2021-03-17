@@ -8,7 +8,7 @@ def main(ctx):
     release("1.6", "1.6"),
     release("1.6-prod", "1.6", "Dockerfile.prod", "prod"),
     release("1.7", "1.7", custom_tags="latest"),
-    release("1.7-prod", "1.7", "Dockerfile.prod", "prod", "latest-prod"),
+    release("1.7-prod", "1.7", "Dockerfile.prod", "prod", "latest-prod")
   ]
 
 def lint():
@@ -83,7 +83,7 @@ def default_tests(name, grav_version, dockerfile="Dockerfile"):
     ]
   }
 
-def release(name, grav_version, dockerfile="Dockerfile", app_env="", custom_tags="",):
+def release(name, grav_version, dockerfile="Dockerfile", app_env="", custom_tags=""):
   return {
     "kind": "pipeline",
     "type": "docker",
