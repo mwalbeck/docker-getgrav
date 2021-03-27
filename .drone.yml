@@ -142,7 +142,7 @@ platform:
 
 steps:
 - name: determine tags
-  image: mwalbeck/determine-docker-tags
+  image: mwalbeck/determine-docker-tags:latest-distroless
   environment:
     APP_NAME: GRAV
     DOCKERFILE_PATH: 1.6/Dockerfile
@@ -194,7 +194,7 @@ platform:
 
 steps:
 - name: determine tags
-  image: mwalbeck/determine-docker-tags
+  image: mwalbeck/determine-docker-tags:latest-distroless
   environment:
     APP_ENV: prod
     APP_NAME: GRAV
@@ -247,7 +247,7 @@ platform:
 
 steps:
 - name: determine tags
-  image: mwalbeck/determine-docker-tags
+  image: mwalbeck/determine-docker-tags:latest-distroless
   environment:
     APP_NAME: GRAV
     CUSTOM_TAGS: latest
@@ -300,7 +300,7 @@ platform:
 
 steps:
 - name: determine tags
-  image: mwalbeck/determine-docker-tags
+  image: mwalbeck/determine-docker-tags:latest-distroless
   environment:
     APP_ENV: prod
     APP_NAME: GRAV

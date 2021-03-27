@@ -92,7 +92,7 @@ def release(name, grav_version, dockerfile="Dockerfile", app_env="", custom_tags
     "steps": [
       {
         "name": "determine tags",
-        "image": "mwalbeck/determine-docker-tags",
+        "image": "mwalbeck/determine-docker-tags:latest-distroless",
         "environment": {
           "VERSION_TYPE": "docker_env",
           "APP_NAME": "GRAV",
