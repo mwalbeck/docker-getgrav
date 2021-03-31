@@ -1,4 +1,4 @@
-FROM php:7.3.27-fpm-buster@sha256:d860f351f99eff5c6702ef06909778c8ae040b70761209f407ec9f9f898593e0
+FROM php:7.3.27-fpm-buster@sha256:9f328a82494ca02235d8114d162e13c728f207aa98faecb547af2f850d3d0ca1
 
 SHELL [ "/bin/bash", "-exo", "pipefail", "-c" ]
 
