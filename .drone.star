@@ -20,6 +20,7 @@ def lint():
       {
         "name": "Lint Dockerfiles",
         "image": "hadolint/hadolint:latest-debian",
+        "pull": "if-not-exists",
         "commands": [
           "hadolint --version",
           "hadolint */Dockerfile*"
@@ -34,6 +35,7 @@ def lint():
       {
         "name": "Lint entrypoint scripts",
         "image": "koalaman/shellcheck-alpine",
+        "pull": "if-not-exists",
         "commands": [
           "shellcheck entrypoint*.sh"
         ],
@@ -67,6 +69,7 @@ def default_tests(name, grav_version, dockerfile="Dockerfile"):
       {
         "name": "build test",
         "image": "plugins/docker",
+        "pull": "if-not-exists",
         "settings": {
           "dockerfile": "%s/%s" % (grav_version, dockerfile),
           "dry_run": "true",
@@ -93,6 +96,7 @@ def release(name, grav_version, dockerfile="Dockerfile", app_env="", custom_tags
       {
         "name": "determine tags",
         "image": "mwalbeck/determine-docker-tags:latest-distroless",
+        "pull": "if-not-exists",
         "environment": {
           "VERSION_TYPE": "docker_env",
           "APP_NAME": "GRAV",
@@ -105,6 +109,7 @@ def release(name, grav_version, dockerfile="Dockerfile", app_env="", custom_tags
       {
         "name": "build and publish",
         "image": "plugins/docker",
+        "pull": "if-not-exists",
         "settings": {
           "dockerfile": "%s/%s" % (grav_version, dockerfile),
           "username": {
@@ -119,6 +124,7 @@ def release(name, grav_version, dockerfile="Dockerfile", app_env="", custom_tags
       {
         "name": "notify",
         "image": "plugins/matrix",
+        "pull": "if-not-exists",
         "settings": {
           "homeserver": "https://matrix.mwalbeck.org",
           "roomid": {
