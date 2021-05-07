@@ -33,7 +33,7 @@ RUN groupadd --system foo; \
         opcache \
     ; \
     pecl install apcu-${PHP_APCU_VERSION:1}; \
-    pecl install yaml $PHP_YAML_VERSION; \
+    pecl install yaml-$PHP_YAML_VERSION; \
     \
     docker-php-ext-enable \
         apcu \
