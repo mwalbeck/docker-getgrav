@@ -18,13 +18,7 @@ RUN groupadd --force --system --gid 33 www-data; \
         unzip \
         rsync \
         gosu \
-    ; \
-    rm -rf /var/lib/apt/lists/*;
-
-RUN savedAptMark="$(apt-mark showmanual)"; \
-    \
-    apt-get update; \
-    apt-get install -y --no-install-recommends \
+        ##### Build dependencies
         libwebp-dev \
         libjpeg-dev \
         libpng-dev \
@@ -38,7 +32,6 @@ RUN savedAptMark="$(apt-mark showmanual)"; \
         gd \
         opcache \
     ; \
-    \
     pecl install apcu-${PHP_APCU_VERSION:1}; \
     pecl install yaml-$PHP_YAML_VERSION; \
     \
@@ -46,20 +39,19 @@ RUN savedAptMark="$(apt-mark showmanual)"; \
         apcu \
         yaml \
     ; \
-    apt-mark auto '.*' > /dev/null; \
-    apt-mark manual $savedAptMark; \
-    ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
-        | awk '/=>/ { print $3 }' \
-        | sort -u \
-        | xargs -r dpkg-query -S \
-        | cut -d: -f1 \
-        | sort -u \
-        | xargs -rt apt-mark manual; \
+    apt-get purge -y --auto-remove \
+        libwebp-dev \
+        libjpeg-dev \
+        libpng-dev \
+        libfreetype6-dev \
+        libyaml-dev \
+        libzip-dev \
+    ; \
+    rm -rf /var/lib/apt/lists/*; \
     \
-    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-    rm -rf /var/lib/apt/lists/*
-
-RUN git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/share/grav; \
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"; \
+    \
+    git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/share/grav; \
     cd /usr/share/grav; \
     rm -rf \
         .editorconfig \
@@ -78,7 +70,6 @@ RUN git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/sh
     ;
 
 COPY entrypoint.prod.sh /entrypoint.sh
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY grav.ini $PHP_INI_DIR/conf.d/
 
 VOLUME [ "/var/www", "/tmp" ]
