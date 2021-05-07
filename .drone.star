@@ -37,6 +37,7 @@ def lint():
         "image": "koalaman/shellcheck-alpine",
         "pull": "if-not-exists",
         "commands": [
+          "shellcheck --version",
           "shellcheck entrypoint*.sh"
         ],
         "when": {
