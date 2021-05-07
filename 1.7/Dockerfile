@@ -52,21 +52,20 @@ RUN groupadd --system foo; \
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"; \
     \
     git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/share/grav; \
-    cd /usr/share/grav; \
     rm -rf \
-        .editorconfig \
-        .gitignore \
-        .travis.yml \
-        .git \
-        assets \
-        backup \
-        cache \
-        images \
-        logs \
-        tmp \
-        tests \
-        webserver-configs \
-        user \
+        /usr/share/grav/.editorconfig \
+        /usr/share/grav/.gitignore \
+        /usr/share/grav/.travis.yml \
+        /usr/share/grav/.git \
+        /usr/share/grav/assets \
+        /usr/share/grav/backup \
+        /usr/share/grav/cache \
+        /usr/share/grav/images \
+        /usr/share/grav/logs \
+        /usr/share/grav/tmp \
+        /usr/share/grav/tests \
+        /usr/share/grav/webserver-configs \
+        /usr/share/grav/user \
     ;
 
 COPY entrypoint.sh /entrypoint.sh
