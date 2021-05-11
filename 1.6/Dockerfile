@@ -18,6 +18,13 @@ RUN groupadd --system foo; \
         unzip \
         rsync \
         gosu \
+        ##### Run dependencies
+        libzip4 \
+        libyaml-0-2 \
+        libpng16-16 \
+        libjpeg62-turbo \
+        libwebp6 \
+        libfreetype6 \
         ##### Build dependencies
         libwebp-dev \
         libjpeg-dev \
