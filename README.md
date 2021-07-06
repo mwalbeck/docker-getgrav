@@ -11,8 +11,6 @@ You can find the image on Docker Hub and the source code can be found [here](htt
 
 * latest, 1.7, 1.7.*
 * latest-prod, 1.7-prod, 1.7.*-prod
-* 1.6, 1.6.*
-* 1.6-prod, 1.6.*-prod
 
 ## Usage
 

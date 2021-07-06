@@ -1,12 +1,8 @@
 def main(ctx):
   return [
     lint(),
-    default_tests("1.6", "1.6"),
-    default_tests("1.6-prod", "1.6", "Dockerfile.prod"),
     default_tests("1.7", "1.7"),
     default_tests("1.7-prod", "1.7", "Dockerfile.prod"),
-    release("1.6", "1.6"),
-    release("1.6-prod", "1.6", "Dockerfile.prod", "prod"),
     release("1.7", "1.7", custom_tags="latest"),
     release("1.7-prod", "1.7", "Dockerfile.prod", "prod", "latest-prod")
   ]
@@ -69,11 +65,12 @@ def default_tests(name, grav_version, dockerfile="Dockerfile"):
     "steps": [
       {
         "name": "build test",
-        "image": "plugins/docker",
+        "image": "thegeeklab/drone-docker-buildx",
         "pull": "if-not-exists",
         "settings": {
           "dockerfile": "%s/%s" % (grav_version, dockerfile),
           "dry_run": "true",
+          "platforms": "linux/amd64,linux/arm64",
           "repo": "mwalbeck/getgrav"
         },
       }
@@ -109,7 +106,7 @@ def release(name, grav_version, dockerfile="Dockerfile", app_env="", custom_tags
       },
       {
         "name": "build and publish",
-        "image": "plugins/docker",
+        "image": "thegeeklab/drone-docker-buildx",
         "pull": "if-not-exists",
         "settings": {
           "dockerfile": "%s/%s" % (grav_version, dockerfile),
@@ -119,6 +116,7 @@ def release(name, grav_version, dockerfile="Dockerfile", app_env="", custom_tags
           "password": {
             "from_secret": "dockerhub_password"
           },
+          "platforms": "linux/amd64,linux/arm64",
           "repo": "mwalbeck/getgrav"
         },
       },
