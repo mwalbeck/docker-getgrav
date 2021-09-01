@@ -54,8 +54,12 @@ steps:
   settings:
     dockerfile: 1.7/Dockerfile
     dry_run: true
+    password:
+      from_secret: dockerhub_password_ro
     platforms: linux/amd64,linux/arm64
     repo: mwalbeck/getgrav
+    username:
+      from_secret: dockerhub_username
 
 trigger:
   event:
@@ -80,8 +84,12 @@ steps:
   settings:
     dockerfile: 1.7/Dockerfile.prod
     dry_run: true
+    password:
+      from_secret: dockerhub_password_ro
     platforms: linux/amd64,linux/arm64
     repo: mwalbeck/getgrav
+    username:
+      from_secret: dockerhub_username
 
 trigger:
   event:
@@ -207,6 +215,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 344085b77b3890135ce4c7434c94fde01ce212197056522f81f4f3f2d147edac
+hmac: e029d21e0fd20d9e635db4055fd04b8cbea6b4b55f2abc5643813e2eb368376a
 
 ...
