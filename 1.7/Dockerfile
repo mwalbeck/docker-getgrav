@@ -7,7 +7,7 @@ ENV GRAV_VERSION 1.7.23
 # renovate: datasource=github-tags depName=krakjoe/apcu versioning=semver
 ENV PHP_APCU_VERSION v5.1.21
 # renovate: datasource=github-tags depName=php/pecl-file_formats-yaml versioning=semver
-ENV PHP_YAML_VERSION 2.2.1
+ENV PHP_YAML_VERSION 2.2.2
 
 RUN groupadd --system foo; \
     useradd --no-log-init --system --gid foo --create-home foo; \
