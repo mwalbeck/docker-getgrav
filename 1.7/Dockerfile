@@ -3,7 +3,7 @@ FROM php:7.4.25-fpm-bullseye@sha256:3581789b3712531acb150eeb68f476f8882380a37820
 SHELL [ "/bin/bash", "-exo", "pipefail", "-c" ]
 
 # renovate: datasource=github-tags depName=getgrav/grav versioning=semver
-ENV GRAV_VERSION 1.7.24
+ENV GRAV_VERSION 1.7.25
 # renovate: datasource=github-tags depName=krakjoe/apcu versioning=semver
 ENV PHP_APCU_VERSION v5.1.21
 # renovate: datasource=github-tags depName=php/pecl-file_formats-yaml versioning=semver
