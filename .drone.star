@@ -99,7 +99,7 @@ def release(name, grav_version, dockerfile = "Dockerfile", app_env = "", custom_
         "steps": [
             {
                 "name": "determine tags",
-                "image": "mwalbeck/determine-docker-tags:latest-distroless",
+                "image": "mwalbeck/determine-docker-tags",
                 "pull": "if-not-exists",
                 "environment": {
                     "VERSION_TYPE": "docker_env",

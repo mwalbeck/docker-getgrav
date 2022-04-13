@@ -110,7 +110,7 @@ platform:
 steps:
 - name: determine tags
   pull: if-not-exists
-  image: mwalbeck/determine-docker-tags:latest-distroless
+  image: mwalbeck/determine-docker-tags
   environment:
     APP_NAME: GRAV
     CUSTOM_TAGS: latest
@@ -167,7 +167,7 @@ platform:
 steps:
 - name: determine tags
   pull: if-not-exists
-  image: mwalbeck/determine-docker-tags:latest-distroless
+  image: mwalbeck/determine-docker-tags
   environment:
     APP_ENV: prod
     APP_NAME: GRAV
@@ -215,6 +215,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: e029d21e0fd20d9e635db4055fd04b8cbea6b4b55f2abc5643813e2eb368376a
+hmac: 6d476665adcaa7d8e9cf1040fd2f1f9183c6083d75644d48c2a176f1522073fb
 
 ...
