@@ -51,8 +51,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.tags.outputs.tags }}
-          context: ./1.7
-          file: Dockerfile
+          file: ./1.7/Dockerfile
 
   grav1_7_prod:
     runs-on: dind
@@ -87,5 +86,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.tags.outputs.tags }}
-          context: ./1.7
-          file: Dockerfile.prod
+          file: ./1.7/Dockerfile.prod
