@@ -1,6 +1,5 @@
 # docker-getgrav
 
-[![Build Status](https://build.walbeck.it/api/badges/walbeck-it/docker-getgrav/status.svg)](https://build.walbeck.it/walbeck-it/docker-getgrav)
 ![Docker Pulls](https://img.shields.io/docker/pulls/mwalbeck/getgrav)
 
 Docker container for [GRAV CMS](https://getgrav.org/). All images are based on the PHP fpm-buster image.
