@@ -32,7 +32,7 @@ jobs:
           DOCKERFILE_PATH: "1.7/Dockerfile"
           INCLUDE_MAJOR: "no"
           CUSTOM_TAGS: "latest"
-          IMAGE_NAME: "mwalbeck/composer"
+          IMAGE_NAME: "mwalbeck/getgrav"
         run: |
           determine-docker-tags
           dockerd &
@@ -67,7 +67,7 @@ jobs:
           DOCKERFILE_PATH: "1.7/Dockerfile.prod"
           INCLUDE_MAJOR: "no"
           CUSTOM_TAGS: "latest-prod"
-          IMAGE_NAME: "mwalbeck/composer"
+          IMAGE_NAME: "mwalbeck/getgrav"
         run: |
           determine-docker-tags
           dockerd &
