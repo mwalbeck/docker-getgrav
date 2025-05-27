@@ -25,6 +25,7 @@ RUN groupadd --system foo; \
         libjpeg62-turbo \
         libwebp6 \
         libfreetype6 \
+        libicu67 \
         ##### Build dependencies
         libwebp-dev \
         libjpeg-dev \
@@ -32,12 +33,15 @@ RUN groupadd --system foo; \
         libfreetype6-dev \
         libyaml-dev \
         libzip-dev \
+        libicu-dev \
     ; \
     docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp; \
 	docker-php-ext-install -j "$(nproc)" \
         zip \
         gd \
         opcache \
+        exif \
+        intl \
     ; \
     pecl install apcu-${PHP_APCU_VERSION:1}; \
     pecl install yaml-$PHP_YAML_VERSION; \
@@ -53,6 +57,7 @@ RUN groupadd --system foo; \
         libfreetype6-dev \
         libyaml-dev \
         libzip-dev \
+        libicu-dev \
     ; \
     rm -rf /var/lib/apt/lists/*; \
     \
