@@ -1,4 +1,4 @@
-FROM php:8.1.32-fpm-bullseye@sha256:3d394495ec03b285e61c44fedc9e82aa613a5179f20b957f7b2a2f77cbd48921
+FROM php:8.1.32-fpm-bullseye@sha256:324a7b213110cc2dcd669bd834dc9ea0cb17e0cdde0f505cdc5c19f65c6d0bf4
 
 SHELL [ "/bin/bash", "-exo", "pipefail", "-c" ]
 
