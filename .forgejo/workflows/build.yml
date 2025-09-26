@@ -10,7 +10,7 @@ jobs:
     if: github.ref != 'refs/heads/renovate/*'
     runs-on: docker
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: https://github.com/hadolint/hadolint-action@v3.3.0
         with:
           dockerfile: ./1.7/Dockerfile
@@ -22,7 +22,7 @@ jobs:
   grav1_7:
     runs-on: dind
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Get docker tags
         id: tags
         shell: sh
@@ -56,7 +56,7 @@ jobs:
   grav1_7_prod:
     runs-on: dind
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Get docker tags
         id: tags
         shell: sh
