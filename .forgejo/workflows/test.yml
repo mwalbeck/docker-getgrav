@@ -8,10 +8,10 @@ jobs:
     runs-on: docker
     steps:
       - uses: actions/checkout@v4
-      - uses: https://github.com/hadolint/hadolint-action@v3.1.0
+      - uses: https://github.com/hadolint/hadolint-action@v3.3.0
         with:
           dockerfile: ./1.7/Dockerfile
-      - uses: https://github.com/hadolint/hadolint-action@v3.1.0
+      - uses: https://github.com/hadolint/hadolint-action@v3.3.0
         with:
           dockerfile: ./1.7/Dockerfile.prod
       - uses: https://github.com/ludeeus/action-shellcheck@2.0.0

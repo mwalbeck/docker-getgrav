@@ -1,67 +1,32 @@
-FROM php:8.1.33-fpm-bullseye@sha256:bf963a103241b5f9db812bacc101022d3af7584054e865c9cc13f597f3a3e252
+FROM debian:bookworm-slim
 
 SHELL [ "/bin/bash", "-exo", "pipefail", "-c" ]
 
 # renovate: datasource=github-tags depName=getgrav/grav versioning=semver
-ENV GRAV_VERSION 1.7.49
-# renovate: datasource=github-tags depName=krakjoe/apcu versioning=semver
-ENV PHP_APCU_VERSION v5.1.26
-# renovate: datasource=github-tags depName=php/pecl-file_formats-yaml versioning=semver
-ENV PHP_YAML_VERSION 2.2.5
+ENV GRAV_VERSION=1.7.49.5
 
 RUN groupadd --force --system --gid 33 www-data; \
     useradd --no-log-init --system --gid www-data --no-create-home --uid 33 www-data || true; \
     \
     apt-get update; \
     apt-get install -y --no-install-recommends \
+        ca-certificates \
         git \
         unzip \
         rsync \
         gosu \
-        ##### Run dependencies
-        libzip4 \
-        libyaml-0-2 \
-        libpng16-16 \
-        libjpeg62-turbo \
-        libwebp6 \
-        libfreetype6 \
-        libicu67 \
-        ##### Build dependencies
-        libwebp-dev \
-        libjpeg-dev \
-        libpng-dev \
-        libfreetype6-dev \
-        libyaml-dev \
-        libzip-dev \
-        libicu-dev \
-    ; \
-    docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp; \
-	docker-php-ext-install -j "$(nproc)" \
-        zip \
-        gd \
-        opcache \
-        exif \
-        intl \
-    ; \
-    pecl install apcu-${PHP_APCU_VERSION:1}; \
-    pecl install yaml-$PHP_YAML_VERSION; \
-    \
-    docker-php-ext-enable \
-        apcu \
-        yaml \
-    ; \
-    apt-get purge -y --auto-remove \
-        libwebp-dev \
-        libjpeg-dev \
-        libpng-dev \
-        libfreetype6-dev \
-        libyaml-dev \
-        libzip-dev \
-        libicu-dev \
+        php-fpm \
+        php-curl \
+        php-xml \
+        php-gd \
+        php-json \
+        php-mbstring \
+        php-zip \
+        php-apcu \
+        php-opcache \
+        php-yaml \
     ; \
     rm -rf /var/lib/apt/lists/*; \
-    \
-    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"; \
     \
     git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/share/grav; \
     rm -rf \
@@ -81,7 +46,7 @@ RUN groupadd --force --system --gid 33 www-data; \
     ;
 
 COPY entrypoint.prod.sh /entrypoint.sh
-COPY grav.ini $PHP_INI_DIR/conf.d/
+COPY grav.ini /etc/php/8.2/fpm/conf.d/
 
 VOLUME [ "/var/www", "/tmp" ]
 EXPOSE 9000
