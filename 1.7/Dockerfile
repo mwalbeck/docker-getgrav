@@ -28,6 +28,8 @@ RUN groupadd --system foo; \
     ; \
     rm -rf /var/lib/apt/lists/*; \
     \
+    sed -i 's|^error_log = /var/log/php8\.2-fpm\.log$|error_log = stderr|' /etc/php/8.2/fpm/php-fpm.conf; \
+    \
     git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/share/grav; \
     rm -rf \
         /usr/share/grav/.editorconfig \
