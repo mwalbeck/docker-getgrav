@@ -52,7 +52,7 @@ RUN groupadd --force --system --gid 33 www-data; \
 COPY entrypoint.prod.sh /entrypoint.sh
 COPY grav.ini /etc/php/8.2/fpm/conf.d/
 
-VOLUME [ "/var/www", "/tmp", "/run" ]
+VOLUME [ "/var/www", "/tmp", "/run", "/var/lib/php" ]
 EXPOSE 9000
 
 ENTRYPOINT ["/entrypoint.sh"]
