@@ -56,4 +56,4 @@ VOLUME [ "/var/www", "/tmp", "/run" ]
 EXPOSE 9000
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["php-fpm8.2"]
+CMD ["php-fpm8.2", "-F"]

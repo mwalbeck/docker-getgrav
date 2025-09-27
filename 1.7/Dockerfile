@@ -55,4 +55,4 @@ COPY grav.ini /etc/php/8.2/fpm/conf.d/
 EXPOSE 9000
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["php-fpm8.2"]
+CMD ["php-fpm8.2", "-F"]
