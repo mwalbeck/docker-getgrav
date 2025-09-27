@@ -25,10 +25,12 @@ RUN groupadd --system foo; \
         php-apcu \
         php-opcache \
         php-yaml \
+        php-intl \
     ; \
     rm -rf /var/lib/apt/lists/*; \
     \
-    sed -i 's|^error_log = /var/log/php8\.2-fpm\.log$|error_log = stderr|' /etc/php/8.2/fpm/php-fpm.conf; \
+    sed -i 's|^error_log = /var/log/php8\.2-fpm\.log$|error_log = /proc/self/fd/2|' /etc/php/8.2/fpm/php-fpm.conf; \
+    sed -i 's|^listen = /run/php/php8\.2-fpm\.sock$|listen = 9000|' /etc/php/8.2/fpm/pool.d/www.conf; \
     \
     git clone --branch $GRAV_VERSION https://github.com/getgrav/grav.git /usr/share/grav; \
     rm -rf \
