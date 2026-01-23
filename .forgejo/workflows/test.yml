@@ -20,6 +20,7 @@ jobs:
     runs-on: dind
     steps:
       - uses: actions/checkout@v6
+
       - name: Get docker tags
         id: tags
         shell: sh
@@ -29,14 +30,17 @@ jobs:
           DOCKERFILE_PATH: "1.7/Dockerfile"
           INCLUDE_MAJOR: "no"
           CUSTOM_TAGS: "latest"
-          IMAGE_NAME: "mwalbeck/getgrav"
+          IMAGE_NAME: "git.walbeck.it/walbeck-it/getgrav"
         run: |
           determine-docker-tags
           dockerd &
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker Buildx
         uses: https://github.com/docker/setup-buildx-action@v3
+
       - name: Test build
         uses: https://github.com/docker/build-push-action@v6
         with:
@@ -48,6 +52,7 @@ jobs:
     runs-on: dind
     steps:
       - uses: actions/checkout@v6
+
       - name: Get docker tags
         id: tags
         shell: sh
@@ -58,14 +63,17 @@ jobs:
           DOCKERFILE_PATH: "1.7/Dockerfile.prod"
           INCLUDE_MAJOR: "no"
           CUSTOM_TAGS: "latest-prod"
-          IMAGE_NAME: "mwalbeck/getgrav"
+          IMAGE_NAME: "git.walbeck.it/walbeck-it/getgrav"
         run: |
           determine-docker-tags
           dockerd &
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker Buildx
         uses: https://github.com/docker/setup-buildx-action@v3
+
       - name: Test build
         uses: https://github.com/docker/build-push-action@v6
         with:
