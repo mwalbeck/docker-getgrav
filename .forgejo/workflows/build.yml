@@ -104,6 +104,7 @@ jobs:
         env:
           VERSION_TYPE: "docker_env"
           APP_NAME: "GRAV"
+          APP_ENV: "prod"
           DOCKERFILE_PATH: "1.7/Dockerfile.prod"
           INCLUDE_MAJOR: "no"
           CUSTOM_TAGS: "latest-prod"
