@@ -3,7 +3,7 @@ FROM debian:bookworm-20260406-slim@sha256:4724b8cc51e33e398f0e2e15e18d5ec2851ff0
 SHELL [ "/bin/bash", "-exo", "pipefail", "-c" ]
 
 # renovate: datasource=github-tags depName=getgrav/grav versioning=semver
-ENV GRAV_VERSION=1.7.52
+ENV GRAV_VERSION=1.7.53
 
 RUN groupadd --force --system --gid 33 www-data; \
     useradd --no-log-init --system --gid www-data --no-create-home --uid 33 www-data || true; \
