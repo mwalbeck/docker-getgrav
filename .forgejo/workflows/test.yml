@@ -39,7 +39,7 @@ jobs:
         uses: actions/docker-setup-qemu@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
 
       - name: Set up Docker Buildx
-        uses: actions/docker-setup-buildx@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+        uses: actions/docker-setup-buildx@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
 
       - name: Test build
         uses: actions/docker-build-push@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
@@ -72,7 +72,7 @@ jobs:
         uses: actions/docker-setup-qemu@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
 
       - name: Set up Docker Buildx
-        uses: actions/docker-setup-buildx@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+        uses: actions/docker-setup-buildx@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
 
       - name: Test build
         uses: actions/docker-build-push@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
