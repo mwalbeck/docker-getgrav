@@ -8,10 +8,10 @@ jobs:
     runs-on: docker
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: actions/hadolint@2332a7b74a6de0dda2e2221d575162eba76ba5e5 # v3.3.0
+      - uses: actions/hadolint@06be81baf89a55ffd0e24b8f04a4185738dd3387 # v3.5.0
         with:
           dockerfile: ./1.7/Dockerfile
-      - uses: actions/hadolint@2332a7b74a6de0dda2e2221d575162eba76ba5e5 # v3.3.0
+      - uses: actions/hadolint@06be81baf89a55ffd0e24b8f04a4185738dd3387 # v3.5.0
         with:
           dockerfile: ./1.7/Dockerfile.prod
       - uses: actions/shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # 2.0.0
